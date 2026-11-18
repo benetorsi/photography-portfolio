@@ -1,29 +1,70 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f6f2">
-  <meta name="description" content="Photography portfolio of Benedetta Torsi, based in Amsterdam.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Photography portfolio of Benedetta, based in Amsterdam.">
   <title>Benedetta Torsi — Photography</title>
   <link rel="stylesheet" href="styles.css">
   <script src="photos.js" defer></script>
   <script src="script.js" defer></script>
 </head>
+
 <body>
   <div class="site-shell">
     <header class="site-header">
       <a class="wordmark" href="#gallery" id="home-link">benedetta torsi</a>
-      <nav aria-label="Main navigation"><a href="#gallery" data-nav="gallery" aria-current="page">photographs</a><a href="#about" data-nav="about">about</a></nav>
+      <nav aria-label="Main navigation"><a href="#gallery" data-nav="gallery" aria-current="page">photographs</a><a
+          href="#about" data-nav="about">about</a></nav>
     </header>
     <main>
       <section id="gallery" class="gallery" aria-label="Photography gallery">
-        <div class="photo-stage"><img id="main-photo" alt="" fetchpriority="high"><button type="button" class="stage-arrow previous" id="previous" aria-label="Previous photograph">&#8592;</button><button type="button" class="stage-arrow next" id="next" aria-label="Next photograph">&#8594;</button></div>
-        <div class="gallery-footer"><span id="photo-caption" class="caption"></span><div class="gallery-controls"><button id="previous-small" type="button" aria-label="Previous photograph">previous</button><span id="photo-count" aria-live="polite"></span><button id="next-small" type="button" aria-label="Next photograph">next</button></div></div>
+        <div class="gallery-layout">
+
+          <aside class="album-sidebar" aria-label="Photo albums">
+            <div id="album-list" class="album-list"></div>
+          </aside>
+
+          <div class="gallery-content">
+            <div class="photo-stage">
+              <img id="main-photo" alt="" fetchpriority="high">
+
+              <button type="button" class="stage-arrow previous" id="previous" aria-label="Previous photograph">
+                &#8592;
+              </button>
+
+              <button type="button" class="stage-arrow next" id="next" aria-label="Next photograph">
+                &#8594;
+              </button>
+            </div>
+
+            <div class="gallery-footer">
+              <span id="photo-caption" class="caption"></span>
+
+              <div class="gallery-controls">
+                <button id="previous-small" type="button">previous</button>
+                <span id="photo-count" aria-live="polite"></span>
+                <button id="next-small" type="button">next</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
-      <section id="about" class="about" hidden><h1>about</h1><p>Benedetta Torsi is a photographer based in Amsterdam. Her passion lies in capturing life's simple moments on analog film, documenting the authentic essence of everyday life.</p><p>For enquiries and collaborations:<br><a href="mailto:torsibenedetta@gmail.com">torsibenedetta@gmail.com</a></p><p>Amsterdam, Netherlands</p></section>
+      <section id="about" class="about" hidden>
+        <h1>about</h1>
+        <p>Benedetta Torsi is a photographer based in Amsterdam. Her passion lies in capturing life's simple moments on
+          analog film, documenting the authentic essence of everyday life.</p>
+        <p>For enquiries and collaborations:<br><a href="mailto:torsibenedetta@gmail.com">torsibenedetta@gmail.com</a>
+        </p>
+        <p>Amsterdam, Netherlands</p>
+      </section>
     </main>
-    <footer class="site-footer"><span>© <span id="year"></span> Benedetta Torsi</span><span>Photography portfolio</span></footer>
+    <footer class="site-footer"><span>© <span id="year"></span> Benedetta Torsi</span><span>Photography portfolio</span>
+    </footer>
   </div>
 </body>
+
 </html>

@@ -31,3 +31,112 @@ main { flex:1; display:flex; flex-direction:column; justify-content:center; }
 [hidden] { display:none !important; }
 @media(max-width:650px) { .site-shell { padding:22px 20px; } .wordmark { font-size:16px; } nav { gap:18px; } .gallery { padding:35px 0 20px; } .photo-stage { height:60svh; min-height:250px; } .stage-arrow { opacity:.6; width:15%; font-size:18px; } .gallery-footer { font-size:11px; } .gallery-controls { gap:10px; } .about { padding:75px 0; } .site-footer span:last-child { display:none; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .stage-arrow { transition:none; } }
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+  --acid-yellow: #eaff00;
+  --red: #ff3030;
+  --blue: #174bff;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.site-shell,
+.site-header,
+.gallery,
+.about,
+.site-footer {
+  background-color: var(--background);
+}
+
+a {
+  color: var(--blue);
+}
+
+a:hover,
+button:hover {
+  color: var(--red);
+}
+
+.wordmark {
+  color: var(--foreground);
+}
+
+.wordmark:hover {
+  color: var(--blue);
+}
+
+nav a[aria-current="page"] {
+  color: var(--foreground);
+  background-color: var(--acid-yellow);
+}
+
+button {
+  color: var(--foreground);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--acid-yellow);
+  color: #111111;
+}
+.gallery-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.album-sidebar {
+  padding-top: 8px;
+}
+
+.album-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.album-list button {
+  display: block;
+  padding: 2px 4px;
+  border: none;
+  background: transparent;
+  color: #111111;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.album-list button:hover {
+  color: #174bff;
+}
+
+.album-list button.active {
+  background: #eaff00;
+  color: #111111;
+}
+
+.gallery-content {
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .gallery-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .album-list {
+    gap: 8px;
+  }
+}
