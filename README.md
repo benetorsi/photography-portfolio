@@ -1,4 +1,4 @@
-# Benedetta Torsi — Photography Portfolio
+# Photography Portfolio
 
 A lightweight photography website built with HTML, CSS, and vanilla JavaScript. Uses eight photographs from the previous website. No build tools, account, or paid dependencies required.
 
