@@ -22,9 +22,13 @@
   let selectedAlbum = null;
   const sidebarButtons = [];
   let autoplayTimer = null;
+  let fadeTimeout = null;
   const prefersReducedMotion =
     window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const autoplayIntervalMs = 3200;
+  const fadeOutMs = 220;
 
   function stopAutoplay() {
     if (!autoplayTimer) return;
@@ -40,7 +44,7 @@
 
     autoplayTimer = window.setInterval(() => {
       showHomepagePhoto(homepageIndex + 1, { userInitiated: false });
-    }, 4200);
+    }, autoplayIntervalMs);
   }
 
   function showHomepageStage() {
@@ -126,7 +130,7 @@
   function syncActiveSidebarButton() {
     sidebarButtons.forEach(entry => {
       const isActive =
-        (!selectedAlbum && entry.kind === 'home') ||
+        (selectedAlbum === null && entry.kind === 'home') ||
         (selectedAlbum !== null && entry.kind === 'album' && entry.albumIndex === selectedAlbum);
 
       entry.button.classList.toggle('active', isActive);
@@ -144,10 +148,25 @@
 
     homepageIndex = (nextIndex + homepagePhotos.length) % homepagePhotos.length;
     const photo = homepagePhotos[homepageIndex];
-    image.src = photo.src;
-    image.alt = photo.alt || `Photograph ${homepageIndex + 1}`;
-    if (caption) caption.textContent = photo.caption || '';
-    if (count) count.textContent = `${homepageIndex + 1} / ${homepagePhotos.length}`;
+
+    if (fadeTimeout) {
+      window.clearTimeout(fadeTimeout);
+      fadeTimeout = null;
+    }
+
+    if (!prefersReducedMotion) image.style.opacity = '0';
+    fadeTimeout = window.setTimeout(() => {
+      image.src = photo.src;
+      image.alt = photo.alt || `Photograph ${homepageIndex + 1}`;
+      if (caption) caption.textContent = photo.caption || '';
+      if (count) count.textContent = `${homepageIndex + 1} / ${homepagePhotos.length}`;
+      if (!prefersReducedMotion) {
+        window.requestAnimationFrame(() => {
+          image.style.opacity = '1';
+        });
+      }
+    }, prefersReducedMotion ? 0 : fadeOutMs);
+
     if (options.userInitiated !== false) startAutoplay();
     if (homepagePhotos.length > 1) {
       const preload = new Image();
