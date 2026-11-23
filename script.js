@@ -14,6 +14,10 @@
   const albumItems = document.getElementById('album-items');
   const gallery = document.getElementById('gallery');
   const about = document.getElementById('about');
+  const previous = document.getElementById('previous');
+  const next = document.getElementById('next');
+  const previousSmall = document.getElementById('previous-small');
+  const nextSmall = document.getElementById('next-small');
   let homepageIndex = 0;
   let selectedAlbum = null;
   const sidebarButtons = [];
@@ -134,7 +138,7 @@
   function showHomepagePhoto(nextIndex, options = {}) {
     if (!homepagePhotos.length) {
       image.alt = 'No photographs added yet';
-      count.textContent = '0 / 0';
+      if (count) count.textContent = '0 / 0';
       return;
     }
 
@@ -142,8 +146,8 @@
     const photo = homepagePhotos[homepageIndex];
     image.src = photo.src;
     image.alt = photo.alt || `Photograph ${homepageIndex + 1}`;
-    caption.textContent = photo.caption || '';
-    count.textContent = `${homepageIndex + 1} / ${homepagePhotos.length}`;
+    if (caption) caption.textContent = photo.caption || '';
+    if (count) count.textContent = `${homepageIndex + 1} / ${homepagePhotos.length}`;
     if (options.userInitiated !== false) startAutoplay();
     if (homepagePhotos.length > 1) {
       const preload = new Image();
@@ -164,22 +168,30 @@
     else startAutoplay();
   }
 
-  document.getElementById('previous').addEventListener('click', () => {
-    if (selectedAlbum) return;
-    showHomepagePhoto(homepageIndex - 1);
-  });
-  document.getElementById('next').addEventListener('click', () => {
-    if (selectedAlbum) return;
-    showHomepagePhoto(homepageIndex + 1);
-  });
-  document.getElementById('previous-small').addEventListener('click', () => {
-    if (selectedAlbum) return;
-    showHomepagePhoto(homepageIndex - 1);
-  });
-  document.getElementById('next-small').addEventListener('click', () => {
-    if (selectedAlbum) return;
-    showHomepagePhoto(homepageIndex + 1);
-  });
+  if (previous) {
+    previous.addEventListener('click', () => {
+      if (selectedAlbum) return;
+      showHomepagePhoto(homepageIndex - 1);
+    });
+  }
+  if (next) {
+    next.addEventListener('click', () => {
+      if (selectedAlbum) return;
+      showHomepagePhoto(homepageIndex + 1);
+    });
+  }
+  if (previousSmall) {
+    previousSmall.addEventListener('click', () => {
+      if (selectedAlbum) return;
+      showHomepagePhoto(homepageIndex - 1);
+    });
+  }
+  if (nextSmall) {
+    nextSmall.addEventListener('click', () => {
+      if (selectedAlbum) return;
+      showHomepagePhoto(homepageIndex + 1);
+    });
+  }
   document.addEventListener('keydown', event => {
     if (gallery.hidden || event.altKey || event.ctrlKey || event.metaKey) return;
     if (selectedAlbum) return;
