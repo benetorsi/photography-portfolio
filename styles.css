@@ -15,6 +15,11 @@ main { flex:1; display:flex; flex-direction:column; justify-content:center; }
 .gallery { padding:48px 0 36px; }
 .photo-stage { position:relative; display:flex; justify-content:center; align-items:center; height:min(66vh,760px); min-height:280px; }
 .photo-stage img { display:block; max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
+
+#main-photo {
+  opacity: 1;
+  transition: opacity 900ms ease;
+}
 .stage-arrow { position:absolute; top:0; bottom:0; width:18%; border:0; background:transparent; font-size:24px; opacity:0; transition:opacity .2s; }
 .photo-stage:hover .stage-arrow,.stage-arrow:focus-visible { opacity:1; }
 .previous { left:0; text-align:left; padding-left:12px; }
