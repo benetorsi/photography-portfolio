@@ -28,26 +28,36 @@
           </aside>
 
           <div class="gallery-content">
-            <div class="photo-stage">
-              <img id="main-photo" alt="" fetchpriority="high">
+            <div id="homepage-stage" class="homepage-stage">
+              <div class="photo-stage">
+                <img id="main-photo" alt="" fetchpriority="high">
 
-              <button type="button" class="stage-arrow previous" id="previous" aria-label="Previous photograph">
-                &#8592;
-              </button>
+                <button type="button" class="stage-arrow previous" id="previous" aria-label="Previous photograph">
+                  &#8592;
+                </button>
 
-              <button type="button" class="stage-arrow next" id="next" aria-label="Next photograph">
-                &#8594;
-              </button>
+                <button type="button" class="stage-arrow next" id="next" aria-label="Next photograph">
+                  &#8594;
+                </button>
+              </div>
+
+              <div class="gallery-footer">
+                <span id="photo-caption" class="caption"></span>
+
+                <div class="gallery-controls">
+                  <button id="previous-small" type="button">previous</button>
+                  <span id="photo-count" aria-live="polite"></span>
+                  <button id="next-small" type="button">next</button>
+                </div>
+              </div>
             </div>
 
-            <div class="gallery-footer">
-              <span id="photo-caption" class="caption"></span>
-
-              <div class="gallery-controls">
-                <button id="previous-small" type="button">previous</button>
-                <span id="photo-count" aria-live="polite"></span>
-                <button id="next-small" type="button">next</button>
-              </div>
+            <div id="album-view" class="album-view" hidden>
+              <header class="album-header">
+                <h2 id="album-title" class="album-title"></h2>
+                <p id="album-description" class="album-description"></p>
+              </header>
+              <div id="album-items" class="album-items" aria-live="polite"></div>
             </div>
           </div>
 

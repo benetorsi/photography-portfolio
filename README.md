@@ -9,8 +9,10 @@ Open `index.html` in your browser. Or, from the project folder, run `python3 -m 
 ## Change your photographs
 
 1. Copy new JPG, PNG, or WebP files into `assets/photos/`.
-2. Open `photos.js` and add or remove entries in `window.PORTFOLIO_PHOTOS`.
-3. Change `alt` to describe each image, and optionally add a `caption`.
+2. Open `photos.js` and edit:
+   - `window.HOMEPAGE_PHOTOS` (the 6 images that autoplay on the homepage)
+   - `window.ALBUMS` (the album list on the left and its scrollable photo sets)
+3. Change `alt` to describe each image, and optionally add `caption` (homepage) or `text` (album side text).
 4. Commit and push your changes to GitHub.
 
 To change the biography, contact email, or navigation, edit `index.html`. To change typography, spacing, and colors, edit `styles.css`.
