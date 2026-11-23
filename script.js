@@ -3,6 +3,7 @@
   const homepagePhotos = window.HOMEPAGE_PHOTOS || window.PORTFOLIO_PHOTOS || [];
   const albums = window.ALBUMS || [];
   const image = document.getElementById('main-photo');
+  const fadeImage = document.getElementById('fade-photo');
   const count = document.getElementById('photo-count');
   const caption = document.getElementById('photo-caption');
   const albumList = document.getElementById('album-list');
@@ -22,13 +23,13 @@
   let selectedAlbum = null;
   const sidebarButtons = [];
   let autoplayTimer = null;
-  let fadeTimeout = null;
+  let fadeCleanupTimeout = null;
   const prefersReducedMotion =
     window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const autoplayIntervalMs = 3200;
-  const fadeOutMs = 220;
+  const autoplayIntervalMs = 5200;
+  const fadeDurationMs = 1400;
 
   function stopAutoplay() {
     if (!autoplayTimer) return;
@@ -39,7 +40,7 @@
   function startAutoplay() {
     stopAutoplay();
     if (prefersReducedMotion) return;
-    if (selectedAlbum) return;
+    if (selectedAlbum !== null) return;
     if (homepagePhotos.length <= 1) return;
 
     autoplayTimer = window.setInterval(() => {
@@ -149,23 +150,31 @@
     homepageIndex = (nextIndex + homepagePhotos.length) % homepagePhotos.length;
     const photo = homepagePhotos[homepageIndex];
 
-    if (fadeTimeout) {
-      window.clearTimeout(fadeTimeout);
-      fadeTimeout = null;
+    if (caption) caption.textContent = photo.caption || '';
+    if (count) count.textContent = `${homepageIndex + 1} / ${homepagePhotos.length}`;
+
+    if (fadeCleanupTimeout) {
+      window.clearTimeout(fadeCleanupTimeout);
+      fadeCleanupTimeout = null;
     }
 
-    if (!prefersReducedMotion) image.style.opacity = '0';
-    fadeTimeout = window.setTimeout(() => {
+    if (!fadeImage || prefersReducedMotion) {
       image.src = photo.src;
       image.alt = photo.alt || `Photograph ${homepageIndex + 1}`;
-      if (caption) caption.textContent = photo.caption || '';
-      if (count) count.textContent = `${homepageIndex + 1} / ${homepagePhotos.length}`;
-      if (!prefersReducedMotion) {
-        window.requestAnimationFrame(() => {
-          image.style.opacity = '1';
-        });
-      }
-    }, prefersReducedMotion ? 0 : fadeOutMs);
+    } else {
+      fadeImage.src = photo.src;
+      fadeImage.alt = photo.alt || `Photograph ${homepageIndex + 1}`;
+      fadeImage.style.opacity = '0';
+      window.requestAnimationFrame(() => {
+        fadeImage.style.opacity = '1';
+      });
+
+      fadeCleanupTimeout = window.setTimeout(() => {
+        image.src = photo.src;
+        image.alt = photo.alt || `Photograph ${homepageIndex + 1}`;
+        fadeImage.style.opacity = '0';
+      }, fadeDurationMs);
+    }
 
     if (options.userInitiated !== false) startAutoplay();
     if (homepagePhotos.length > 1) {
@@ -189,31 +198,31 @@
 
   if (previous) {
     previous.addEventListener('click', () => {
-      if (selectedAlbum) return;
+      if (selectedAlbum !== null) return;
       showHomepagePhoto(homepageIndex - 1);
     });
   }
   if (next) {
     next.addEventListener('click', () => {
-      if (selectedAlbum) return;
+      if (selectedAlbum !== null) return;
       showHomepagePhoto(homepageIndex + 1);
     });
   }
   if (previousSmall) {
     previousSmall.addEventListener('click', () => {
-      if (selectedAlbum) return;
+      if (selectedAlbum !== null) return;
       showHomepagePhoto(homepageIndex - 1);
     });
   }
   if (nextSmall) {
     nextSmall.addEventListener('click', () => {
-      if (selectedAlbum) return;
+      if (selectedAlbum !== null) return;
       showHomepagePhoto(homepageIndex + 1);
     });
   }
   document.addEventListener('keydown', event => {
     if (gallery.hidden || event.altKey || event.ctrlKey || event.metaKey) return;
-    if (selectedAlbum) return;
+    if (selectedAlbum !== null) return;
     if (event.key === 'ArrowLeft') showHomepagePhoto(homepageIndex - 1);
     if (event.key === 'ArrowRight') showHomepagePhoto(homepageIndex + 1);
   });
